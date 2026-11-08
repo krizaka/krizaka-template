@@ -1,0 +1,36 @@
+{
+  "name": "__PRODUCT__-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "__Product__ — started from krizaka/krizaka-template-web.",
+  "packageManager": "pnpm@10.34.6",
+  "scripts": {
+    "dev": "turbo run dev --filter=@__PRODUCT__/web",
+    "build": "turbo run build",
+    "lint:workspace": "npx --yes -p @krizaka/config@latest krizaka-workspace-guard",
+    "lint": "pnpm run lint:workspace && turbo run lint && pnpm run check:i18n && krizaka-sg-ratchet && pnpm run format:check",
+    "check:i18n": "krizaka-i18n check apps/web/messages",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test && vitest run",
+    "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
+    "seo:live": "node scripts/check-seo-family.mjs --base http://localhost:3000 --host https://www.__PRODUCT__.com --types WebSite,SoftwareApplication",
+    "lint:sg": "krizaka-sg-ratchet",
+    "sg:ratchet:update": "krizaka-sg-ratchet --update",
+    "sg:fix": "node scripts/sg-fix.mjs",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,css}\""
+  },
+  "devDependencies": {
+    "@ast-grep/cli": "0.51.0",
+    "@krizaka/config": "^0.17.0",
+    "@krizaka/i18n": "^0.2.4",
+    "prettier": "^3.9.10",
+    "turbo": "^2.11.7",
+    "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka"
+}

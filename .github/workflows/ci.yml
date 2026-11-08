@@ -1,0 +1,129 @@
+# The template's own proof: unit tests of the generator, then — for each target a pull request touches —
+# generate a sample project from a clean checkout and run that target's declared checks (install, build, tests).
+# On main and in the merge queue every target is proven. The required check is the `Template CI` gate.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  merge_group:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  generator:
+    name: Generator tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run check
+
+  changes:
+    name: Changed targets
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      web: ${{ steps.filter.outputs.web }}
+      desktop: ${{ steps.filter.outputs.desktop }}
+      mobile: ${{ steps.filter.outputs.mobile }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - id: filter
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: node scripts/changed-targets.mjs >> "$GITHUB_OUTPUT"
+
+  web:
+    name: Prove web
+    needs: changes
+    if: ${{ needs.changes.outputs.web == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: targets/web/pnpm-lock.yaml
+      - run: node bin/krizaka-template.mjs prove web
+
+  desktop:
+    name: Prove desktop
+    needs: changes
+    if: ${{ needs.changes.outputs.desktop == 'true' }}
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: targets/desktop/pnpm-lock.yaml
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+      - run: node bin/krizaka-template.mjs prove desktop
+
+  mobile:
+    name: Prove mobile
+    needs: changes
+    if: ${{ needs.changes.outputs.mobile == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: targets/mobile/pnpm-lock.yaml
+      - run: node bin/krizaka-template.mjs prove mobile
+
+  # The job name is the required status check on main: a target skipped because the pull request
+  # does not touch it is fine; a failure or a cancellation is not.
+  gate:
+    name: Template CI
+    needs: [generator, changes, web, desktop, mobile]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    env:
+      GENERATOR: ${{ needs.generator.result }}
+      CHANGES: ${{ needs.changes.result }}
+      WEB: ${{ needs.web.result }}
+      DESKTOP: ${{ needs.desktop.result }}
+      MOBILE: ${{ needs.mobile.result }}
+    steps:
+      - run: |
+          test "$GENERATOR" = success
+          test "$CHANGES" = success
+          for result in "$WEB" "$DESKTOP" "$MOBILE"; do
+            test "$result" = success || test "$result" = skipped
+          done

@@ -1,0 +1,13 @@
+/* The Krizaka platform, in this order: Tailwind v4; @krizaka/tailwind (the --kz-* tokens, role utilities, dark / light variants);
+   the faces; @krizaka/ui's sources; then the product's brand tokens (add `@import "@krizaka/tokens/brands/<product>.css";` once the brand exists). */
+@import "tailwindcss";
+@import "@krizaka/tailwind";
+@import "@krizaka/fonts/css";
+@import "@krizaka/ui/tailwind.css";
+
+html {
+  overflow-x: hidden;
+}
+body {
+  background: var(--kz-surface-0);
+}

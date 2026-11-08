@@ -1,0 +1,9 @@
+{
+  "app": "__PRODUCT__-dev",
+  "url": "https://dev.__PRODUCT__.com",
+  "health": "/api/healthz",
+  "indexing": "off",
+  "spec": "deploy/digitalocean/app.yaml",
+  "product": "__PRODUCT__",
+  "waitMinutes": 25
+}

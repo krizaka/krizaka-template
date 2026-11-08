@@ -1,0 +1,8 @@
+{
+  "meta": {
+    "siteName": "__Product__",
+    "titleTemplate": "{title} · __Product__",
+    "description": "__Product__ — started from the Krizaka Next.js template."
+  },
+  "home": { "title": "__Product__", "lead": "Replace this page: it is the template's starting point." }
+}

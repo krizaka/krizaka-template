@@ -1,0 +1,18 @@
+{
+  "tabs": {
+    "home": "Accueil",
+    "settings": "Paramètres",
+    "label": "Sections principales"
+  },
+  "home": {
+    "title": "__Product__",
+    "subtitle": "Bienvenue dans __Product__."
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "languageAuto": "Auto (appareil)",
+    "languageEn": "Anglais",
+    "languageFr": "Français"
+  }
+}

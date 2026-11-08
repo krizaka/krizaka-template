@@ -1,0 +1,26 @@
+{
+  "name": "krizaka-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "One cross-platform Krizaka template: generate a web, desktop or mobile product project.",
+  "type": "module",
+  "bin": {
+    "krizaka-template": "bin/krizaka-template.mjs"
+  },
+  "scripts": {
+    "test": "node --test bin/krizaka-template.test.mjs scripts/changed-targets.test.mjs",
+    "check": "pnpm run format:check && pnpm test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@krizaka/config": "^0.17.0",
+    "prettier": "^3.9.10"
+  },
+  "packageManager": "pnpm@10.34.6",
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "Apache-2.0",
+  "author": "Krizaka"
+}

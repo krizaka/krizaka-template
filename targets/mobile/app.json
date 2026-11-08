@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "__Product__",
+    "slug": "__PRODUCT__-mobile",
+    "owner": "oussamaabid",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "__PRODUCT__",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.krizaka.__PRODUCT__",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png",
+        "backgroundColor": "#0d0d10"
+      },
+      "package": "com.krizaka.__PRODUCT__"
+    },
+    "plugins": [
+      "./plugins/with-scene-lifecycle",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0d0d10",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 160,
+          "dark": {
+            "backgroundColor": "#0d0d10"
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": ""
+      }
+    },
+    "icon": "./assets/icon.png",
+    "backgroundColor": "#0d0d10"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://raw.githubusercontent.com/krizaka/.github/main/docs/standards/dev-preview.schema.json",
+  "version": 1,
+  "product": "__PRODUCT__",
+  "index": "off",
+  "criteria": {
+    "site.healthy": {
+      "evidence": null,
+      "gap": "Not yet checked: fill with a fresh evidence URL, or a justified na (docs/standards/dev-preview.md).",
+      "issue": "https://github.com/krizaka/__PRODUCT__/issues"
+    },
+    "ui.krizaka-ui": {
+      "evidence": null,
+      "gap": "Not yet checked: fill with a fresh evidence URL, or a justified na (docs/standards/dev-preview.md).",
+      "issue": "https://github.com/krizaka/__PRODUCT__/issues"
+    },
+    "ui.themes-devices": {
+      "evidence": null,
+      "gap": "Not yet checked: fill with a fresh evidence URL, or a justified na (docs/standards/dev-preview.md).",
+      "issue": "https://github.com/krizaka/__PRODUCT__/issues"
+    },
+    "quality.ci-green": {
+      "evidence": null,
+      "gap": "Not yet checked: fill with a fresh evidence URL, or a justified na (docs/standards/dev-preview.md).",
+      "issue": "https://github.com/krizaka/__PRODUCT__/issues"
+    },
+    "quality.tests": {
+      "evidence": null,
+      "gap": "Not yet checked: fill with a fresh evidence URL, or a justified na (docs/standards/dev-preview.md).",
+      "issue": "https://github.com/krizaka/__PRODUCT__/issues"
+    },
+    "security.alerts": {
+      "evidence": null,
+      "gap": "Not yet checked: fill with a fresh evidence URL, or a justified na (docs/standards/dev-preview.md).",
+      "issue": "https://github.com/krizaka/__PRODUCT__/issues"
+    },
+    "docs.current": {
+      "evidence": null,
+      "gap": "Not yet checked: fill with a fresh evidence URL, or a justified na (docs/standards/dev-preview.md).",
+      "issue": "https://github.com/krizaka/__PRODUCT__/issues"
+    },
+    "seo.family": {
+      "evidence": null,
+      "gap": "Not yet checked: fill with a fresh evidence URL, or a justified na (docs/standards/dev-preview.md).",
+      "issue": "https://github.com/krizaka/__PRODUCT__/issues"
+    },
+    "ops.cost": {
+      "evidence": null,
+      "gap": "Not yet checked: fill with a fresh evidence URL, or a justified na (docs/standards/dev-preview.md).",
+      "issue": "https://github.com/krizaka/__PRODUCT__/issues"
+    }
+  }
+}

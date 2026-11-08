@@ -1,0 +1,10 @@
+{
+  "description": "A Krizaka product site: Next.js (App Router) in a pnpm/turbo monorepo, wired to the org's CI, deploy and SEO.",
+  "binaryExtensions": [".png", ".ico", ".webp", ".svg", ".woff", ".woff2"],
+  "check": [
+    ["pnpm", "install", "--frozen-lockfile"],
+    ["pnpm", "run", "check"],
+    ["pnpm", "run", "build"]
+  ],
+  "next": ["pnpm install", "pnpm dev"]
+}

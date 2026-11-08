@@ -1,0 +1,9 @@
+{
+  "description": "A Krizaka mobile app: Expo (SDK 57) and React Native (0.86), a product-agnostic skeleton.",
+  "binaryExtensions": [".png", ".ico", ".webp", ".jpg", ".ttf", ".otf", ".icns"],
+  "check": [
+    ["pnpm", "install", "--frozen-lockfile"],
+    ["pnpm", "run", "check"]
+  ],
+  "next": ["pnpm install", "pnpm start"]
+}

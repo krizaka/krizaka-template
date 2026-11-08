@@ -1,0 +1,42 @@
+# Dependabot — the Krizaka model (monthly, quiet; DEPS 2026-10-13, krizaka/.github).
+# Once a month (the 1st, 06:00 Paris), ONE grouped pull request per ecosystem — every update, majors included — and at
+# most one open per ecosystem. Security fixes stay on and arrive grouped apart, as soon as an advisory is published.
+# The targets' own dependencies (targets/*/package.json, pnpm-lock.yaml, Cargo.lock) are template content: they move
+# with the products that prove them, by hand, so a bump is always a decision checked by the prove jobs.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+      time: "06:00"
+      timezone: Europe/Paris
+    groups:
+      all:
+        patterns: ["*"]
+    commit-message:
+      prefix: "ci(deps)"
+    labels: ["area:deps"]
+    open-pull-requests-limit: 1
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: monthly
+      time: "06:00"
+      timezone: Europe/Paris
+    groups:
+      all:
+        patterns: ["*"]
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+    labels: ["area:deps"]
+    open-pull-requests-limit: 1
+    cooldown:
+      default-days: 7

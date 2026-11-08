@@ -1,0 +1,14 @@
+# Smoke flow: launch the app and confirm the Home screen loads.
+# On a simulator:
+#   maestro test .maestro/smoke.yaml
+appId: com.krizaka.__PRODUCT__
+# manual: needs a device or simulator; not run in CI.
+tags:
+  - manual
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: "__Product__"
+    timeout: 30000
+- assertVisible: "__Product__"

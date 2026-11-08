@@ -1,0 +1,38 @@
+{
+  "app": {
+    "name": "__Product__",
+    "tagline": "À remplir : une phrase sur ce que fait __Product__."
+  },
+  "folders": {
+    "title": "Vos dossiers",
+    "empty": "Aucun dossier encore. __Product__ ne lit que les dossiers que vous choisissez.",
+    "add": "Ajouter un dossier",
+    "remove": "Retirer"
+  },
+  "menu": {
+    "about": "À propos de __Product__",
+    "hide": "Masquer __Product__",
+    "hideOthers": "Masquer les autres",
+    "showAll": "Tout afficher",
+    "quit": "Quitter __Product__",
+    "edit": "Édition",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "cut": "Couper",
+    "copy": "Copier",
+    "paste": "Coller",
+    "selectAll": "Tout sélectionner",
+    "window": "Fenêtre",
+    "minimize": "Réduire",
+    "zoom": "Zoom",
+    "close": "Fermer",
+    "file": "Fichier",
+    "addFolder": "Ajouter un dossier…"
+  },
+  "shell": {
+    "menu": "Ouvrir le menu",
+    "collapse": "Replier",
+    "expand": "Déplier",
+    "close": "Fermer"
+  }
+}

@@ -1,0 +1,10 @@
+# ast-grep — the org's code rules (addendum 2026-10-15). `npm run lint:sg` runs them through the ratchet
+# (krizaka-sg-ratchet of @krizaka/config, counts in sg-ratchet.json: they only go down).
+# The rules are the sets of @krizaka/config (core, web — one source, ADR-013), tested there; a rule specific to the product
+# goes in rules/ (with its test in rule-tests/, and `rules` + a `testConfigs` entry here).
+# Every rule is written for Tsx, and .ts files are parsed as Tsx too: one rule covers .ts and .tsx.
+ruleDirs:
+  - node_modules/@krizaka/config/ast-grep/core
+  - node_modules/@krizaka/config/ast-grep/web
+languageGlobs:
+  Tsx: ["*.ts", "*.mts"]

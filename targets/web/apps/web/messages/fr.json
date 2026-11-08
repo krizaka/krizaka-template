@@ -1,0 +1,8 @@
+{
+  "meta": {
+    "siteName": "__Product__",
+    "titleTemplate": "{title} · __Product__",
+    "description": "__Product__ — créé à partir du modèle Next.js de Krizaka."
+  },
+  "home": { "title": "__Product__", "lead": "Remplacez cette page : c'est le point de départ du modèle." }
+}

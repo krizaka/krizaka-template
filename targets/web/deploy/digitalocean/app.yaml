@@ -1,0 +1,65 @@
+# __PRODUCT__ dev — DigitalOcean App Platform (TOR1), smallest instance: dev.__PRODUCT__.com. Secrets are DO SECRETs filled at apply time
+# by `krizaka-deploy` (each __NAME__ is replaced from the vault, never committed). Pull main before any apply.
+#
+# ROUTES: App Platform's ingress match is prefix/exact only — NO regex — and a spec never lists routes one by one
+# (krizaka/.github docs/standards/ci-and-deploy.md; `krizaka-deploy routes` fails more than 3 path rules per component).
+# So: the apex answers 308 with www (the family's www rule, krizaka/.github#119) and EVERYTHING else goes to the one component.
+# The fine routing (the dev host serving only its API, /.well-known, robots.txt) is the app's: apps/web/lib/dev-host.ts + proxy.ts.
+name: __PRODUCT__-dev
+region: tor
+domains:
+  - domain: www.__PRODUCT__.com
+    type: PRIMARY
+  - domain: __PRODUCT__.com
+    type: ALIAS
+  - domain: dev.__PRODUCT__.com
+    type: ALIAS
+alerts:
+  - rule: DEPLOYMENT_FAILED
+  - rule: DOMAIN_FAILED
+ingress:
+  rules:
+    - match:
+        authority:
+          exact: __PRODUCT__.com
+      redirect:
+        authority: www.__PRODUCT__.com
+        redirect_code: 308
+    - match:
+        path:
+          prefix: /
+      component:
+        name: web
+services:
+  - name: web
+    github:
+      repo: krizaka/__PRODUCT__
+      branch: main
+      deploy_on_push: true
+    dockerfile_path: deploy/docker/Dockerfile
+    source_dir: /
+    http_port: 3000
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    health_check:
+      http_path: /api/healthz
+      initial_delay_seconds: 20
+      period_seconds: 10
+      timeout_seconds: 5
+      failure_threshold: 3
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: APP_PUBLIC_URL
+        scope: RUN_TIME
+        value: https://www.__PRODUCT__.com
+      - key: APP_DEV_HOST
+        scope: RUN_TIME
+        value: dev.__PRODUCT__.com
+      - key: APP_COMMIT_SHA
+        scope: BUILD_TIME
+        value: ${_self.COMMIT_HASH}
+      # Every dev deployment: noindex and a closed robots.txt (krizaka-deploy refuses a flip).
+      - key: APP_SEARCH_INDEXING
+        scope: RUN_AND_BUILD_TIME
+        value: "off"

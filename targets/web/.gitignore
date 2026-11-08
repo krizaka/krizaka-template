@@ -1,0 +1,19 @@
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+coverage/
+.turbo/
+*.tsbuildinfo
+apps/web/next-env.d.ts
+# Never committed: secrets live in the maintainer's vault and in DO as SECRET
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.pem
+*.log
+# PR captures go to Bunny Storage (krizaka-com scripts/pr-assets.mjs), never into the repository
+docs/screenshots/
+.github/pr-assets/

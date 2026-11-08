@@ -1,0 +1,39 @@
+# Node / Expo
+node_modules/
+dist/
+build/
+coverage/
+test-results/
+.expo/
+.swc/
+*.tsbuildinfo
+
+# OS / IDE
+.DS_Store
+.idea/
+*.iml
+.vscode/
+!.vscode/extensions.json
+.history/
+.codegraph/
+.claude/
+.sonarlint/
+
+# Secrets — never committed
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+
+# Logs & local state
+*.log
+var/
+scratch/
+
+# Native folders are generated (Continuous Native Generation: npx expo prebuild)
+/ios
+/android
+recordings/
