@@ -6,7 +6,7 @@
 
 A Krizaka **Mac app** (Tauri 2). It only _wires_: what every Mac app does the same way (the folder scope, dropped and watched
 files, the Keychain session, the native menu, deep links, the navigation guard, the update channel) is `tauri-plugin-krizaka` of
-[`krizaka-desktop`](https://github.com/krizaka/krizaka-desktop) and its typed page side
+[`krizaka-rust`](https://github.com/krizaka/krizaka-rust) and its typed page side
 [`@krizaka/app-desktop`](https://ui.krizaka.com/packages/app-desktop); the session and the API client are
 [`@krizaka/app-client`](https://ui.krizaka.com/packages/app-client), as on the phone; the page is built from
 [`@krizaka/ui`](https://ui.krizaka.com) (`AppShell desktop`: the web components, in the window), the pipeline is the org's reusable
