@@ -102,8 +102,6 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-          cache-dependency-path: targets/mobile/pnpm-lock.yaml
       - run: node bin/krizaka-template.mjs prove mobile
 
   # The job name is the required status check on main: a target skipped because the pull request
