@@ -1878,7 +1878,7 @@ dependencies = [
 [[package]]
 name = "krizaka-tauri-kit"
 version = "0.2.0"
-source = "git+https://github.com/krizaka/krizaka-desktop?tag=v0.2.0#065366488425b14b26145fb3dde9c561dab17ff1"
+source = "git+https://github.com/krizaka/krizaka-rust?tag=v0.2.0#065366488425b14b26145fb3dde9c561dab17ff1"
 dependencies = [
  "base64 0.23.1",
  "serde",
@@ -3827,7 +3827,7 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-krizaka"
 version = "0.2.0"
-source = "git+https://github.com/krizaka/krizaka-desktop?tag=v0.2.0#065366488425b14b26145fb3dde9c561dab17ff1"
+source = "git+https://github.com/krizaka/krizaka-rust?tag=v0.2.0#065366488425b14b26145fb3dde9c561dab17ff1"
 dependencies = [
  "keyring",
  "krizaka-tauri-kit",

@@ -1,5 +1,5 @@
 {
-  "description": "A Krizaka Mac app: Tauri 2 on krizaka-desktop, with the org's CI and signing pipeline.",
+  "description": "A Krizaka Mac app: Tauri 2 on krizaka-rust, with the org's CI and signing pipeline.",
   "binaryExtensions": [".png", ".ico", ".webp", ".svg", ".woff", ".woff2", ".icns"],
   "check": [
     ["pnpm", "install", "--frozen-lockfile"],
