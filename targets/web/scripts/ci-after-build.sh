@@ -8,4 +8,4 @@ trap 'tail -100 web.log || true' ERR
 for _ in $(seq 1 60); do curl -sf http://localhost:3000/api/healthz && break; sleep 1; done
 # The host of the `seo:live` script (a live check against the started server, so not a `:check` the pre-push hook runs), normalised the way a URL is (the template's placeholder host has capitals, Next lowercases it).
 HOST="$(node -e "console.log(new URL(require('./package.json').scripts['seo:live'].match(/--host (\\S+)/)[1]).origin)")"
-node scripts/check-seo-family.mjs --base http://localhost:3000 --host "$HOST" --types WebSite,SoftwareApplication
+pnpm exec krizaka-seo-family --base http://localhost:3000 --host "$HOST" --types WebSite,SoftwareApplication

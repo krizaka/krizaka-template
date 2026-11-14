@@ -1,4 +1,4 @@
-/* Search engines and AI assistants (the Krizaka family contract, scripts/check-seo-family.mjs): canonical, hreflang, social cards
+/* Search engines and AI assistants (the Krizaka family contract, krizaka-seo-family): canonical, hreflang, social cards
    and the JSON-LD of the site, every node leading back to the Krizaka Organization (the publisher). */
 import type { Metadata } from "next";
 
