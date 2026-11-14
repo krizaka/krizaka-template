@@ -13,7 +13,7 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test && vitest run",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
-    "seo:live": "node scripts/check-seo-family.mjs --base http://localhost:3000 --host https://www.__PRODUCT__.com --types WebSite,SoftwareApplication",
+    "seo:live": "pnpm exec krizaka-seo-family --base http://localhost:3000 --host https://www.__PRODUCT__.com --types WebSite,SoftwareApplication",
     "lint:sg": "krizaka-sg-ratchet",
     "sg:ratchet:update": "krizaka-sg-ratchet --update",
     "sg:fix": "node scripts/sg-fix.mjs",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@ast-grep/cli": "0.51.0",
-    "@krizaka/config": "^0.17.0",
+    "@krizaka/config": "^0.25.0",
     "@krizaka/i18n": "^0.2.4",
     "prettier": "^3.9.10",
     "turbo": "^2.11.7",

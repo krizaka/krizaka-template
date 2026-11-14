@@ -24,7 +24,7 @@ without touching this repository.
 | CI                               | `.github/workflows/ci.yml` (≈10 lines)                                           | `krizaka/.github` `node-ci.yml`              |
 | Dependabot auto-merge, scorecard | thin workflows                                                                   | `krizaka/.github`                            |
 | Deploy                           | `.krizaka-deploy.json`, `deploy/digitalocean/app.yaml` (www rule, no route list) | `krizaka-deploy` in `krizaka/.github/deploy` |
-| SEO family                       | `scripts/check-seo-family.mjs`                                                   | identical copy, org contract                 |
+| SEO family                       | `krizaka-seo-family`                                                             | bin of `@krizaka/config`, org contract       |
 | Static rules                     | `sgconfig.yml`, `scripts/sg-fix.mjs`, `sg-ratchet.json` (all 0)                  | copies of the org's; keep identical          |
 | Env                              | `apps/web/lib/env.ts` (zod, bounded contexts) + test                             | krizaka-com AGENTS §5                        |
 | i18n                             | `lib/i18n.ts`, `messages/{en,fr}.json`                                           | `@krizaka/i18n`                              |
