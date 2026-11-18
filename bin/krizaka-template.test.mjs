@@ -1,10 +1,15 @@
 import assert from "node:assert/strict";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-import { displayOf, fill, generate, optionsOf, prove, targets, validate } from "./krizaka-template.mjs";
+import { displayOf, fill, generate, optionsOf, prove, targets, validate, walk } from "./krizaka-template.mjs";
+
+const CLI = join(dirname(fileURLToPath(import.meta.url)), "krizaka-template.mjs");
+const cli = (...args) => spawnSync(process.execPath, [CLI, ...args], { encoding: "utf8" });
 
 test("fill replaces both placeholders everywhere", () => {
   assert.equal(fill("__PRODUCT__ and __Product__ and __PRODUCT__", "demo", "Demo"), "demo and Demo and demo");
@@ -91,4 +96,45 @@ for (const target of targets()) {
 test("a target that is not in the listing never reaches a path", () => {
   assert.throws(() => optionsOf("../base"), /unknown target/);
   assert.throws(() => prove("../../etc"), /unknown target/);
+});
+
+test("walk lists every file of a tree, nested ones included", () => {
+  const root = fixtureRoot();
+  const found = walk(join(root, "base")).map((p) => p.slice(root.length + 1));
+  assert.deepEqual(found.sort(), ["base/deep/kept.txt", "base/overridden.txt", "base/shared.txt"]);
+});
+
+test("prove generates a sample, runs the declared checks and returns its folder", () => {
+  const root = fixtureRoot();
+  const out = prove("t1", mkdtempSync(join(tmpdir(), "kt-prove-")), root);
+  assert.ok(existsSync(join(out, "shared.txt")));
+});
+
+test("prove fails when a declared check fails", () => {
+  const root = fixtureRoot();
+  const file = join(root, "targets", "t1", "template.json");
+  writeFileSync(file, JSON.stringify({ description: "t1", binaryExtensions: [], check: [["false"]], next: ["go"] }));
+  assert.throws(() => prove("t1", mkdtempSync(join(tmpdir(), "kt-prove-")), root), /failed in/);
+});
+
+test("cli list prints every target with its description", () => {
+  const result = cli("list");
+  assert.equal(result.status, 0);
+  for (const t of targets()) assert.match(result.stdout, new RegExp(`^${t} — `, "m"));
+});
+
+test("cli new generates a project and prints the next steps", () => {
+  const dir = mkdtempSync(join(tmpdir(), "kt-cli-"));
+  const result = cli("new", "demo", "--target", "mobile", "--dir", dir);
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /is ready \(\d+ files filled\)\. Next:/);
+  assert.ok(existsSync(join(dir, "demo", "package.json")));
+});
+
+test("cli refuses a missing argument, an unknown command and an unknown target with exit 2", () => {
+  for (const args of [["new"], ["new", "demo"], ["prove"], ["prove", "nope"], ["nope"], []]) {
+    const result = cli(...args);
+    assert.equal(result.status, 2, args.join(" "));
+    assert.notEqual(result.stderr, "");
+  }
 });
