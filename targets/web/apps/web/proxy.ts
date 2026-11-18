@@ -17,7 +17,8 @@ export function proxy(request: NextRequest) {
     return;
   const chosen = request.cookies.get("NEXT_LOCALE")?.value;
   const first = (request.headers.get("accept-language") ?? "").split(",")[0]?.trim().toLowerCase() ?? "";
-  const locale = chosen === "en" || chosen === "fr" ? chosen : first.startsWith("fr") ? "fr" : "en";
+  const fallback = first.startsWith("fr") ? "fr" : "en";
+  const locale = chosen === "en" || chosen === "fr" ? chosen : fallback;
   return NextResponse.redirect(new URL(`/${locale}${pathname === "/" ? "" : pathname}`, request.url));
 }
 

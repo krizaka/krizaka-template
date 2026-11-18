@@ -28,10 +28,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function LocaleLayout({
   children,
   params,
-}: {
+}: Readonly<{
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
-}) {
+}>) {
   const { locale } = await params;
   if (!LOCALES.includes(locale as Locale)) notFound();
   return (

@@ -25,7 +25,7 @@ export function App() {
   useEffect(() => {
     const stops = [
       setNativeMenu(bridge, menuSpec(messages.menu), { "folders.add": add }),
-      followLinks(bridge, (route) => (window.location.hash = route)),
+      followLinks(bridge, (route) => (globalThis.location.hash = route)),
     ];
     return () => void Promise.all(stops).then((all) => all.forEach((stop) => stop()));
   }, [messages, add]);
