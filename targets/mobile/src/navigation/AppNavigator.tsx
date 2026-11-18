@@ -20,6 +20,10 @@ export type TabParamList = {
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
+type TabIconProps = Readonly<{ color: string; size: number }>;
+const renderHomeIcon = ({ color, size }: TabIconProps) => <HomeIcon size={size} color={color} />;
+const renderSettingsIcon = ({ color, size }: TabIconProps) => <SettingsIcon size={size} color={color} />;
+
 export function AppNavigator(): React.JSX.Element {
   const { theme: c, scheme } = useTheme();
   const t = useT();
@@ -55,7 +59,7 @@ export function AppNavigator(): React.JSX.Element {
           component={HomeScreen}
           options={{
             tabBarLabel: t("tabs.home"),
-            tabBarIcon: ({ color, size }) => <HomeIcon size={size} color={color} />,
+            tabBarIcon: renderHomeIcon,
             tabBarAccessibilityLabel: t("tabs.home"),
           }}
         />
@@ -64,7 +68,7 @@ export function AppNavigator(): React.JSX.Element {
           component={SettingsScreen}
           options={{
             tabBarLabel: t("tabs.settings"),
-            tabBarIcon: ({ color, size }) => <SettingsIcon size={size} color={color} />,
+            tabBarIcon: renderSettingsIcon,
             tabBarAccessibilityLabel: t("tabs.settings"),
           }}
         />

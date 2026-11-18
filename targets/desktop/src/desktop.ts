@@ -1,11 +1,4 @@
-import {
-  createFolders,
-  createUpdates,
-  followLinks,
-  keychainStorage,
-  setNativeMenu,
-  type TauriBridge,
-} from "@krizaka/app-desktop";
+import { createFolders, createUpdates, keychainStorage, type TauriBridge } from "@krizaka/app-desktop";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 
@@ -14,4 +7,4 @@ export const bridge: TauriBridge = { invoke, listen };
 export const folders = createFolders(bridge);
 export const updates = createUpdates(bridge);
 export const keychain = keychainStorage(bridge);
-export { followLinks, setNativeMenu };
+export { followLinks, setNativeMenu } from "@krizaka/app-desktop";

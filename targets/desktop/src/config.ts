@@ -23,7 +23,7 @@ export const discovery = createAppDiscovery({
   appVersion: APP_VERSION,
   baked: BAKED,
   // The signed manifest is public: the page's storage keeps it; the Keychain keeps the session only.
-  storage: browserStorage(() => window.localStorage),
+  storage: browserStorage(() => globalThis.localStorage),
   env: { url: import.meta.env.VITE_APP_URL, environment: import.meta.env.VITE_APP_ENV },
 });
 
