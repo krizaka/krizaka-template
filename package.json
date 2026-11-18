@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "node --test bin/krizaka-template.test.mjs scripts/changed-targets.test.mjs",
+    "coverage": "node -e \"require('node:fs').mkdirSync('coverage',{recursive:true})\" && node --test --experimental-test-coverage --test-coverage-include=bin/*.mjs --test-coverage-include=scripts/*.mjs --test-coverage-exclude=**/*.test.mjs --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info bin/krizaka-template.test.mjs scripts/changed-targets.test.mjs",
     "check": "pnpm run format:check && pnpm test",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
