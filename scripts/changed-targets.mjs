@@ -3,8 +3,12 @@
 // Prints one `<target>=true|false` line per target, for $GITHUB_OUTPUT.
 // Anything outside targets/<t>/ (the base, the generator, the workflows) concerns every target.
 import { execFileSync } from "node:child_process";
+import { existsSync } from "node:fs";
 
 import { targets } from "../bin/krizaka-template.mjs";
+
+// An absolute path, so a writable directory on PATH cannot stand in for git.
+const GIT = ["/usr/bin/git", "/usr/local/bin/git", "/opt/homebrew/bin/git"].find((p) => existsSync(p)) ?? "git";
 
 export function changedTargets(all, changedFiles) {
   const flags = Object.fromEntries(all.map((t) => [t, false]));
@@ -23,7 +27,7 @@ function main() {
     process.env.GITHUB_EVENT_NAME === "pull_request" && base
       ? changedTargets(
           all,
-          execFileSync("git", ["diff", "--name-only", base, "HEAD"], { encoding: "utf8" }).split("\n").filter(Boolean),
+          execFileSync(GIT, ["diff", "--name-only", base, "HEAD"], { encoding: "utf8" }).split("\n").filter(Boolean),
         )
       : Object.fromEntries(all.map((t) => [t, true]));
   for (const [target, run] of Object.entries(flags)) console.log(`${target}=${run}`);

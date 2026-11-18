@@ -24,9 +24,10 @@ export function targets(root = ROOT) {
 }
 
 export function optionsOf(target, root = ROOT) {
-  const file = join(root, "targets", target ?? "", "template.json");
-  if (!existsSync(file)) throw new Error(`unknown target "${target}" — one of: ${targets(root).join(", ")}`);
-  return JSON.parse(readFileSync(file, "utf8"));
+  // The target only ever reaches a path as an entry of the targets/ listing, never as raw input.
+  const known = targets(root).find((t) => t === target);
+  if (known === undefined) throw new Error(`unknown target "${target}" — one of: ${targets(root).join(", ")}`);
+  return JSON.parse(readFileSync(join(root, "targets", known, "template.json"), "utf8"));
 }
 
 export function validate(slug, display) {
@@ -91,7 +92,8 @@ function run(command, cwd) {
 }
 
 export function prove(target, dir, root = ROOT) {
-  const parent = dir ?? mkdtempSync(join(tmpdir(), `krizaka-template-${target}-`));
+  optionsOf(target, root);
+  const parent = dir ?? mkdtempSync(join(tmpdir(), "krizaka-template-"));
   const { out, options } = generate({ slug: "sample", display: "Sample", target, dir: parent, root });
   for (const command of options.check) run(command, out);
   return out;

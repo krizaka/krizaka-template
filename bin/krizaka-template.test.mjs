@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
-import { displayOf, fill, generate, optionsOf, targets, validate } from "./krizaka-template.mjs";
+import { displayOf, fill, generate, optionsOf, prove, targets, validate } from "./krizaka-template.mjs";
 
 test("fill replaces both placeholders everywhere", () => {
   assert.equal(fill("__PRODUCT__ and __Product__ and __PRODUCT__", "demo", "Demo"), "demo and Demo and demo");
@@ -87,3 +87,8 @@ for (const target of targets()) {
     assert.ok(!existsSync(join(out, "template.json")), "the options file stays in the template");
   });
 }
+
+test("a target that is not in the listing never reaches a path", () => {
+  assert.throws(() => optionsOf("../base"), /unknown target/);
+  assert.throws(() => prove("../../etc"), /unknown target/);
+});
