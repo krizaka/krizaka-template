@@ -33,7 +33,7 @@ node bin/krizaka-template.mjs prove <target>   # generate a sample, run the targ
 - **A target is a complete project.** What ships in `targets/<target>/` must install, build and pass its checks after generation.
 - **Shared things stay shared.** Generated projects call the reusable workflows of `krizaka/.github` (pinned by SHA); the UI is `@krizaka/*` packages. A fix every product needs goes there, not into a target's copy.
 - **Each target obeys its own contract**: `targets/<target>/AGENTS.md` is the generated product's agent contract; edit it as what the product's agents will read.
-- Follow the [krizaka-engineering skill](https://github.com/krizaka/krizaka-skills/blob/main/skills/krizaka-engineering/SKILL.md); search its [packages reference](https://github.com/krizaka/krizaka-skills/blob/main/skills/krizaka-engineering/references/packages.md) before writing anything generic.
+- Follow the [krizaka-engineering skill](https://github.com/krizaka/krizaka-agents/blob/main/plugins/krizaka-engineering/skills/krizaka-engineering/SKILL.md); search its [packages reference](https://github.com/krizaka/krizaka-agents/blob/main/plugins/krizaka-engineering/skills/krizaka-engineering/references/packages.md) before writing anything generic.
 - Write one job per function: cognitive complexity ≤ 15, nesting ≤ 2, a body under 60 lines; name things by what they do.
 - Hierarchy: this root file holds the rules of the whole repository; a sub-folder adds a local `AGENTS.md` that says only what differs there. The nearest file wins.
 
@@ -61,4 +61,4 @@ node bin/krizaka-template.mjs prove <target>   # generate a sample, run the targ
 
 - [README](README.md): targets, layout, how to generate.
 - [Org standards](https://github.com/krizaka/.github/tree/main/docs/standards) of krizaka/.github; the [engineering charter](https://github.com/krizaka/.github/blob/main/AGENTS.template.md).
-- [krizaka-engineering skill](https://github.com/krizaka/krizaka-skills/blob/main/skills/krizaka-engineering/SKILL.md).
+- [krizaka-engineering skill](https://github.com/krizaka/krizaka-agents/blob/main/plugins/krizaka-engineering/skills/krizaka-engineering/SKILL.md).
